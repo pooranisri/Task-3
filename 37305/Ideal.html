@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithms Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        #array-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .bar {
+            width: 20px;
+            margin: 1px;
+            background-color: #3498db;
+        }
+        #description {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sorting Algorithms Visualization</h1>
+    <div>
+        <button onclick="visualizeBubbleSort()">Bubble Sort</button>
+        <button onclick="visualizeSelectionSort()">Selection Sort</button>
+        <button onclick="visualizeQuickSort()">Quick Sort</button>
+    </div>
+    <div id="array-container"></div>
+    <div id="description"></div>
+
+    <script>
+        let array = [5, 3, 8, 4, 2];
+
+        function createBars(arr) {
+            const container = document.getElementById('array-container');
+            container.innerHTML = '';
+            arr.forEach(value => {
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = `${value * 20}px`;
+                container.appendChild(bar);
+            });
+        }
+
+        function updateDescription(text) {
+            const description = document.getElementById('description');
+            description.innerText = text;
+        }
+
+        async function visualizeBubbleSort() {
+            updateDescription("Bubble Sort: Repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.");
+            const arr = [...array];
+            const n = arr.length;
+            createBars(arr);
+
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                        createBars(arr);
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                    }
+                }
+            }
+        }
+
+        async function visualizeSelectionSort() {
+            updateDescription("Selection Sort: Divides the input list into two parts: a sorted and an unsorted part. It repeatedly selects the smallest element from the unsorted part.");
+            const arr = [...array];
+            const n = arr.length;
+            createBars(arr);
+
+            for (let i = 0; i < n - 1; i++) {
+                let minIndex = i;
+                for (let j = i + 1; j < n; j++) {
+                    if (arr[j] < arr[minIndex]) {
+                        minIndex = j;
+                    }
+                }
+                [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+                createBars(arr);
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+
+        async function visualizeQuickSort() {
+            updateDescription("Quick Sort: Selects a 'pivot' element from the array and partitions the other elements into two sub-arrays according to whether they are less than or greater than the pivot.");
+            const arr = [...array];
+            await quickSort(arr, 0, arr.length - 1);
+            createBars(arr);
+        }
+
+        async function quickSort(arr, left, right) {
+            if (left < right) {
+                const pivotIndex = await partition(arr, left, right);
+                await quickSort(arr, left, pivotIndex - 1);
+                await quickSort(arr, pivotIndex + 1, right);
+            }
+        }
+
+        async function partition(arr, left, right) {
+            const pivot = arr[right];
+            let i = left - 1;
+
+            for (let j = left; j < right; j++) {
+                if (arr[j] < pivot) {
+                    i++;
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                    createBars(arr);
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+            }
+            [arr[i + 1], arr[right]] = [arr[right], arr[i + 1]];
+            createBars(arr);
+            await new Promise(resolve => setTimeout(resolve, 500));
+            return i + 1;
+        }
+
+        createBars(array);
+        updateDescription("Choose a sorting algorithm to visualize.");
+    </script>
+</body>
+</html>
