@@ -38,7 +38,7 @@
     <div id="description"></div>
 
     <script>
-        let array = [5, 3, 8, 4, 2];
+        let array = [5, 3, 8, 4, 2]; // Example array
 
         function createBars(arr) {
             const container = document.getElementById('array-container');
@@ -57,7 +57,7 @@
         }
 
         async function visualizeBubbleSort() {
-            updateDescription("Bubble Sort: Repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.");
+            updateDescription("Bubble Sort: Organizing books by height.");
             const arr = [...array];
             const n = arr.length;
             createBars(arr);
@@ -74,7 +74,7 @@
         }
 
         async function visualizeSelectionSort() {
-            updateDescription("Selection Sort: Divides the input list into two parts: a sorted and an unsorted part. It repeatedly selects the smallest element from the unsorted part.");
+            updateDescription("Selection Sort: Finding the smallest toy in a box.");
             const arr = [...array];
             const n = arr.length;
             createBars(arr);
@@ -93,7 +93,7 @@
         }
 
         async function visualizeQuickSort() {
-            updateDescription("Quick Sort: Selects a 'pivot' element from the array and partitions the other elements into two sub-arrays according to whether they are less than or greater than the pivot.");
+            updateDescription("Quick Sort: Organizing students by age.");
             const arr = [...array];
             await quickSort(arr, 0, arr.length - 1);
             createBars(arr);
