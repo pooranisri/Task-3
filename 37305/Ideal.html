@@ -73,6 +73,7 @@
     <button onclick="showAlgorithm('merge')">Merge Sort</button>
     <button onclick="showAlgorithm('quick')">Quick Sort</button>
     <button onclick="showAlgorithm('selection')">Selection Sort</button>
+    <button onclick="compareAlgorithms()">Compare Algorithms</button>
 
     <div id="algorithm-info" class="explanation"></div>
     <div id="algorithm-examples"></div>
@@ -313,6 +314,21 @@
             const height = (value / max) * 100; // Scale height
             return `<div class="bar" style="height: ${height}%;"></div>`;
         }).join('');
+    }
+    function compareAlgorithms() {
+        const comparisonInfo = `
+            <h2>Sorting Algorithms Comparison</h2>
+            <p>This section compares the four sorting algorithms based on their average time complexity:</p>
+            <ul>
+                <li><strong>Bubble Sort:</strong> O(n²) - Inefficient for large datasets.</li>
+                <li><strong>Selection Sort:</strong> O(n²) - Also inefficient for large datasets, but simple to implement.</li>
+                <li><strong>Merge Sort:</strong> O(n log n) - Efficient for large datasets and stable.</li>
+                <li><strong>Quick Sort:</strong> O(n log n) - Generally faster in practice, though performance can degrade to O(n²) in the worst case.</li>
+            </ul>
+            <p>In general, Merge Sort and Quick Sort are the preferred algorithms for larger datasets due to their better performance.</p>
+        `;
+        document.getElementById('algorithm-info').innerHTML = comparisonInfo;
+        document.getElementById('algorithm-examples').innerHTML = ''; // Clear examples
     }
 </script>
 
