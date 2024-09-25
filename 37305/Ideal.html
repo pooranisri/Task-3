@@ -308,12 +308,8 @@
         });
     }
 
-    function barRepresentation(array) {
-        const max = Math.max(...array);
-        return array.map(value => {
-            const height = (value / max) * 100; // Scale height
-            return `<div class="bar" style="height: ${height}%;"></div>`;
-        }).join('');
+    function barRepresentation(arr) {
+        return arr.map(value => `<div class="bar" style="height: ${value * 5}px;">${value}</div>`).join('');
     }
     function compareAlgorithms() {
         const comparisonInfo = `

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Sorting Algorithms</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f4f4f9; 
+            margin: 20px; 
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .info {
+            display: none;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        .diagram {
+            text-align: center;
+        }
+        .diagram img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>JavaScript Sorting Algorithms</h1>
+    <div class="button-group">
+        <button onclick="showInfo('bubble')">Bubble Sort</button>
+        <button onclick="showInfo('merge')">Merge Sort</button>
+        <button onclick="showInfo('quick')">Quick Sort</button>
+        <button onclick="showInfo('selection')">Selection Sort</button>
+    </div>
+
+    <!-- Bubble Sort Section -->
+    <div id="bubble" class="info">
+        <h2>Bubble Sort</h2>
+        <p>Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.</p>
+        <p><strong>Example:</strong> <a href="#" onclick="event.preventDefault(); showDiagram('bubbleExample1')">Example 1</a> | <a href="#" onclick="event.preventDefault(); showDiagram('bubbleExample2')">Example 2</a></p>
+        <div id="bubbleExample1" class="diagram" style="display:none;">
+            <img src="https://example.com/bubble_sort_1.png" alt="Bubble Sort Example 1">
+            <p>Explanation: Here, larger values 'bubble' up to their correct positions.</p>
+        </div>
+        <div id="bubbleExample2" class="diagram" style="display:none;">
+            <img src="https://example.com/bubble_sort_2.png" alt="Bubble Sort Example 2">
+            <p>Explanation: Showing how multiple passes are needed to sort the entire array.</p>
+        </div>
+    </div>
+
+    <!-- Repeat similar structure for Merge, Quick, and Selection sorts -->
+
+    <!-- Merge Sort Section -->
+    <div id="merge" class="info">
+        <h2>Merge Sort</h2>
+        <p>Merge Sort is an efficient, stable, divide and conquer sorting algorithm. It divides the input array into two halves, calls itself for the two halves, and then merges the two sorted halves.</p>
+        <p><strong>Example:</strong> <a href="#" onclick="event.preventDefault(); showDiagram('mergeExample1')">Example 1</a> | <a href="#" onclick="event.preventDefault(); showDiagram('mergeExample2')">Example 2</a></p>
+        <div id="mergeExample1" class="diagram" style="display:none;">
+            <img src="https://example.com/merge_sort_1.png" alt="Merge Sort Example 1">
+            <p>Explanation: Division of array until single elements, then merging back.</p>
+        </div>
+        <!-- Add more examples similarly -->
+    </div>
+
+    <!-- Quick Sort and Selection Sort sections would follow the same pattern -->
+
+</div>
+
+<script>
+    function showInfo(type) {
+        // Hide all info divs
+        document.querySelectorAll('.info').forEach(info => {
+            info.style.display = 'none';
+        });
+        // Show the selected info
+        document.getElementById(type).style.display = 'block';
+    }
+
+    function showDiagram(exampleId) {
+        // Toggle diagram visibility
+        let example = document.getElementById(exampleId);
+        example.style.display = example.style.display === 'none' ? 'block' : 'none';
+    }
+</script>
+
+</body>
+</html>

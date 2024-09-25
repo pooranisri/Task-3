@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Sorting Algorithms</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+        padding: 10px 15px;
+        margin: 10px 5px;
+        cursor: pointer;
+        background-color: #5cb85c;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #4cae4c;
+    }
+    .content {
+        margin-top: 20px;
+        padding: 10px;
+        border-top: 2px solid #eee;
+    }
+    .example {
+        background: #e9ecef;
+        padding: 10px;
+        margin: 10px 0;
+        border-left: 4px solid #007bff;
+    }
+    .diagram {
+        width: 100%;
+        max-width: 400px;
+        margin: 10px 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>JavaScript Sorting Algorithms</h1>
+    <div>
+        <button onclick="showInfo('Bubble')">Bubble Sort</button>
+        <button onclick="showInfo('Merge')">Merge Sort</button>
+        <button onclick="showInfo('Quick')">Quick Sort</button>
+        <button onclick="showInfo('Selection')">Selection Sort</button>
+    </div>
+    <div id="content" class="content"></div>
+</div>
+
+<script>
+function showInfo(type) {
+    const contentDiv = document.getElementById('content');
+    let html = `<h2>${type} Sort</h2>`;
+    
+    switch(type) {
+        case 'Bubble':
+            html += `<p><strong>Definition:</strong> Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.</p>
+            <p><a href="javascript:alert('Example of ${type} Sort')">Example 1</a> - Basic implementation.</p>
+            <div class="example">
+                <h3>Example 2: Optimized Bubble Sort</h3>
+                <p>If no swapping occurs in a pass, the array is sorted, and we can stop.</p>
+                <img src="bubble-sort-diagram.png" alt="Bubble Sort Diagram" class="diagram">
+            </div>`;
+            break;
+        case 'Merge':
+            html += `<p><strong>Definition:</strong> Merge Sort is a divide and conquer algorithm that divides the input array into two halves, calls itself for the two halves, and then merges the two sorted halves.</p>
+            <p><a href="javascript:alert('Example of ${type} Sort')">Example 1</a> - Recursive division.</p>
+            <div class="example">
+                <h3>Example 2: Merge Process</h3>
+                <p>How merging of two sorted subarrays works.</p>
+                <img src="merge-sort-diagram.png" alt="Merge Sort Diagram" class="diagram">
+            </div>`;
+            break;
+        case 'Quick':
+            html += `<p><strong>Definition:</strong> Quick Sort is a divide-and-conquer algorithm. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot.</p>
+            <p><a href="javascript:alert('Example of ${type} Sort')">Example 1</a> - Pivot selection and partition.</p>
+            <div class="example">
+                <h3>Example 2: Different Pivot Choices</h3>
+                <p>Impact of pivot selection on performance.</p>
+                <img src="quick-sort-diagram.png" alt="Quick Sort Diagram" class="diagram">
+            </div>`;
+            break;
+        case 'Selection':
+            html += `<p><strong>Definition:</strong> Selection Sort divides the input list into two parts: a sorted sublist of items which is built up from left to right at the front (left) of the list and a sublist of the remaining unsorted items.</p>
+            <p><a href="javascript:alert('Example of ${type} Sort')">Example 1</a> - Finding minimum element.</p>
+            <div class="example">
+                <h3>Example 2: Sorting Process</h3>
+                <p>How the smallest element is selected and swapped in each iteration.</p>
+                <img src="selection-sort-diagram.png" alt="Selection Sort Diagram" class="diagram">
+            </div>`;
+            break;
+    }
+    html += `<p><strong>Comparison:</strong> While Bubble Sort is simple, it's not efficient for large lists. Merge Sort is efficient but uses extra space. Quick Sort is generally fast but can degrade to O(n^2) on bad pivot choices. Selection Sort is not stable but can be useful for small data sets or when memory write is costly.</p>`;
+    contentDiv.innerHTML = html;
+}
+</script>
+</body>
+</html>
