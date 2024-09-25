@@ -3,130 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorting Algorithms Visualization</title>
+    <title>Sorting Algorithms in JavaScript</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            text-align: center;
+            margin: 0;
             padding: 20px;
         }
-        #array-container {
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .explanation {
+            margin-top: 20px;
+        }
+        .example {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            display: none;
+        }
+        .diagram {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            margin-top: 10px;
         }
         .bar {
             width: 20px;
-            margin: 1px;
-            background-color: #3498db;
+            margin: 0 2px;
+            background-color: #007BFF;
+            display: inline-block;
         }
-        #description {
-            margin-top: 20px;
-            font-size: 1.2em;
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>Sorting Algorithms Visualization</h1>
-    <div>
-        <button onclick="visualizeBubbleSort()">Bubble Sort</button>
-        <button onclick="visualizeSelectionSort()">Selection Sort</button>
-        <button onclick="visualizeQuickSort()">Quick Sort</button>
-    </div>
-    <div id="array-container"></div>
-    <div id="description"></div>
 
-    <script>
-        let array = [5, 3, 8, 4, 2]; // Example array
+<div class="container">
+    <h1>JavaScript Sorting Algorithms</h1>
+    <button onclick="showAlgorithm('bubble')">Bubble Sort</button>
+    <button onclick="showAlgorithm('merge')">Merge Sort</button>
+    <button onclick="showAlgorithm('quick')">Quick Sort</button>
+    <button onclick="showAlgorithm('selection')">Selection Sort</button>
 
-        function createBars(arr) {
-            const container = document.getElementById('array-container');
-            container.innerHTML = '';
-            arr.forEach(value => {
-                const bar = document.createElement('div');
-                bar.className = 'bar';
-                bar.style.height = `${value * 20}px`;
-                container.appendChild(bar);
-            });
+    <div id="algorithm-info" class="explanation"></div>
+    <div id="algorithm-examples"></div>
+</div>
+
+<script>
+    function showAlgorithm(algorithm) {
+        const infoDiv = document.getElementById('algorithm-info');
+        const examplesDiv = document.getElementById('algorithm-examples');
+
+        let info = '';
+        let examples = '';
+
+        switch (algorithm) {
+            case 'bubble':
+                info = `<h2>Bubble Sort</h2>
+                        <p>Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, 
+                        compares adjacent elements, and swaps them if they are in the wrong order. 
+                        The process is repeated until the list is sorted. While it is easy to implement, 
+                        its average and worst-case time complexity is O(n²), making it inefficient on large lists.</p>
+                        <p><a href="#bubble-explanation">View Explanation</a> | <a href="#bubble-example1">View Example 1</a> | <a href="#bubble-example2">View Example 2</a></p>`;
+                
+                examples = `
+                <div id="bubble-explanation" class="example">
+                    <h3>Explanation</h3>
+                    <p>In Bubble Sort, each pass through the array compares adjacent elements, swapping them if they are in the wrong order. 
+                    This continues until no swaps are needed, indicating that the list is sorted. 
+                    It is particularly inefficient for large lists because it always goes through the list multiple times.</p>
+                </div>
+                <div id="bubble-example1" class="example">
+                    <h3>Example 1</h3>
+                    <p>Let's sort the array [5, 2, 9, 1, 5, 6]. Here’s how the Bubble Sort algorithm would work step-by-step:</p>
+                    <ol>
+                        <li>Initial array: [5, 2, 9, 1, 5, 6]</li>
+                        <li>Compare 5 and 2 → Swap → [2, 5, 9, 1, 5, 6]</li>
+                        <li>Compare 5 and 9 → No Swap → [2, 5, 9, 1, 5, 6]</li>
+                        <li>Compare 9 and 1 → Swap → [2, 5, 1, 9, 5, 6]</li>
+                        <li>Compare 9 and 5 → Swap → [2, 5, 1, 5, 9, 6]</li>
+                        <li>Compare 9 and 6 → Swap → [2, 5, 1, 5, 6, 9]</li>
+                    </ol>
+                    <p>After the first pass: [2, 5, 1, 5, 6, 9]. Continuing:</p>
+                    <ol>
+                        <li>Compare 2 and 5 → No Swap → [2, 5, 1, 5, 6, 9]</li>
+                        <li>Compare 5 and 1 → Swap → [2, 1, 5, 5, 6, 9]</li>
+                        <li>Compare 5 and 5 → No Swap → [2, 1, 5, 5, 6, 9]</li>
+                        <li>Compare 5 and 6 → No Swap → [2, 1, 5, 5, 6, 9]</li>
+                        <li>Compare 6 and 9 → No Swap → [2, 1, 5, 5, 6, 9]</li>
+                    </ol>
+                    <p>After the second pass: [2, 1, 5, 5, 6, 9]. Continuing:</p>
+                    <ol>
+                        <li>Compare 2 and 1 → Swap → [1, 2, 5, 5, 6, 9]</li>
+                        <li>Compare 2 and 5 → No Swap → [1, 2, 5, 5, 6, 9]</li>
+                        <li>Compare 5 and 5 → No Swap → [1, 2, 5, 5, 6, 9]</li>
+                        <li>Compare 5 and 6 → No Swap → [1, 2, 5, 5, 6, 9]</li>
+                        <li>Compare 6 and 9 → No Swap → [1, 2, 5, 5, 6, 9]</li>
+                    </ol>
+                    <p>After the third pass: [1, 2, 5, 5, 6, 9]. The array is now sorted: [1, 2, 5, 5, 6, 9].</p>
+                    <div class="diagram">${barRepresentation([1, 2, 5, 5, 6, 9])}</div>
+                </div>
+                <div id="bubble-example2" class="example">
+                    <h3>Example 2</h3>
+                    <p>Let's sort the array [3, 0, 2, 5, -1, 4, 1]. Here’s how the Bubble Sort algorithm would work:</p>
+                    <ol>
+                        <li>Initial array: [3, 0, 2, 5, -1, 4, 1]</li>
+                        <li>Compare 3 and 0 → Swap → [0, 3, 2, 5, -1, 4, 1]</li>
+                        <li>Compare 3 and 2 → Swap → [0, 2, 3, 5, -1, 4, 1]</li>
+                        <li>Compare 3 and 5 → No Swap → [0, 2, 3, 5, -1, 4, 1]</li>
+                        <li>Compare 5 and -1 → Swap → [0, 2, 3, -1, 5, 4, 1]</li>
+                        <li>Compare 5 and 4 → Swap → [0, 2, 3, -1, 4, 5, 1]</li>
+                        <li>Compare 5 and 1 → Swap → [0, 2, 3, -1, 4, 1, 5]</li>
+                    </ol>
+                    <p>After the first pass: [0, 2, 3, -1, 4, 1, 5]. Continuing:</p>
+                    <ol>
+                        <li>Compare 0 and 2 → No Swap → [0, 2, 3, -1, 4, 1, 5]</li>
+                        <li>Compare 2 and 3 → No Swap → [0, 2, 3, -1, 4, 1, 5]</li>
+                        <li>Compare 3 and -1 → Swap → [0, 2, -1, 3, 4, 1, 5]</li>
+                        <li>Compare 3 and 4 → No Swap → [0, 2, -1, 3, 4, 1, 5]</li>
+                        <li>Compare 4 and 1 → Swap → [0, 2, -1, 3, 1, 4, 5]</li>
+                    </ol>
+                    <p>After the second pass: [0, 2, -1, 3, 1, 4, 5]. Continuing:</p>
+                    <ol>
+                        <li>Compare 0 and 2 → No Swap → [0, 2, -1, 3, 1, 4, 5]</li>
+                        <li>Compare 2 and -1 → Swap → [0, -1, 2, 3, 1, 4, 5]</li>
+                        <li>Compare 2 and 3 → No Swap → [0, -1, 2, 3, 1, 4, 5]</li>
+                        <li>Compare 3 and 1 → Swap → [0, -1, 2, 1, 3, 4, 5]</li>
+                    </ol>
+                    <p>After the third pass: [0, -1, 2, 1, 3, 4, 5]. Continuing:</p>
+                    <ol>
+                        <li>Compare 0 and -1 → Swap → [-1, 0, 2, 1, 3, 4, 5]</li>
+                        <li>Compare 0 and 2 → No Swap → [-1, 0, 2, 1, 3, 4, 5]</li>
+                        <li>Compare 2 and 1 → Swap → [-1, 0, 1, 2, 3, 4, 5]</li>
+                    </ol>
+                    <p>After the fourth pass: [-1, 0, 1, 2, 3, 4, 5]. The array is now sorted: [-1, 0, 1, 2, 3, 4, 5].</p>
+                    <div class="diagram">${barRepresentation([-1, 0, 1, 2, 3, 4, 5])}</div>
+                </div>`;
+                break;
+
+            case 'merge':
+                info = `<h2>Merge Sort</h2>
+                        <p>Merge Sort is a divide-and-conquer algorithm that divides the unsorted list into n sublists, 
+                        each containing one element, and then repeatedly merges the sublists to produce new sorted sublists until there is only one sublist remaining. 
+                        It has a time complexity of O(n log n), making it efficient for large datasets.</p>
+                        <p><a href="#merge-explanation">View Explanation</a> | <a href="#merge-example1">View Example 1</a> | <a href="#merge-example2">View Example 2</a></p>`;
+                
+                examples = `
+                <div id="merge-explanation" class="example">
+                    <h3>Explanation</h3>
+                    <p>In Merge Sort, the array is recursively divided into two halves until each sub-array contains a single element. 
+                    Then, these sub-arrays are merged back together in a sorted manner. 
+                    This algorithm is efficient and stable, making it suitable for large datasets.</p>
+                </div>
+                <div id="merge-example1" class="example">
+                    <h3>Example 1</h3>
+                    <p>Let's sort the array [12, 11, 13, 5, 6, 7]. Here’s how the Merge Sort algorithm would work:</p>
+                    <ol>
+                        <li>Split into halves → [12, 11, 13] and [5, 6, 7]</li>
+                        <li>Split further → [12] [11, 13] → [11] [13] and [5] [6, 7]</li>
+                        <li>Merge → [11, 12, 13] and [5, 6, 7]</li>
+                        <li>Final Merge → [5, 6, 7, 11, 12, 13]</li>
+                    </ol>
+                    <div class="diagram">${barRepresentation([5, 6, 7, 11, 12, 13])}</div>
+                </div>
+                <div id="merge-example2" class="example">
+                    <h3>Example 2</h3>
+                    <p>Let's sort the array [38, 27, 43, 3, 9, 82, 10]. Here’s how the Merge Sort algorithm would work:</p>
+                    <ol>
+                        <li>Split into halves → [38, 27, 43] and [3, 9, 82, 10]</li>
+                        <li>Split further → [38] [27, 43] → [27] [43] and [3, 9] [82, 10]</li>
+                        <li>Merge → [27, 38, 43] and [3, 9, 10, 82]</li>
+                        <li>Final Merge → [3, 9, 10, 27, 38, 43, 82]</li>
+                    </ol>
+                    <div class="diagram">${barRepresentation([3, 9, 10, 27, 38, 43, 82])}</div>
+                </div>`;
+                break;
+
+            case 'quick':
+                info = `<h2>Quick Sort</h2>
+                        <p>Quick Sort is an efficient sorting algorithm that uses a divide-and-conquer strategy. 
+                        It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays: 
+                        those less than the pivot and those greater. The sub-arrays are then sorted recursively. 
+                        Quick Sort has an average time complexity of O(n log n), making it a fast choice for sorting large datasets.</p>
+                        <p><a href="#quick-explanation">View Explanation</a> | <a href="#quick-example1">View Example 1</a> | <a href="#quick-example2">View Example 2</a></p>`;
+                
+                examples = `
+                <div id="quick-explanation" class="example">
+                    <h3>Explanation</h3>
+                    <p>Quick Sort selects a pivot element and partitions the array into two halves: elements less than the pivot and elements greater than the pivot. 
+                    It then recursively sorts the sub-arrays. This method is typically faster in practice than other O(n log n) algorithms, 
+                    making it a popular choice in many applications.</p>
+                </div>
+                <div id="quick-example1" class="example">
+                    <h3>Example 1</h3>
+                    <p>Let's sort the array [10, 80, 30, 90, 40, 50, 70]. Here’s how the Quick Sort algorithm would work step-by-step:</p>
+                    <ol>
+                        <li>Select pivot (50) → Partition: [10, 30, 40] [50] [80, 90, 70]</li>
+                        <li>Sort left → Select pivot (30) → [10] [30] [40]</li>
+                        <li>Sort right → Select pivot (90) → [70, 80] [90]</li>
+                        <li>Combine → [10, 30, 40, 50, 70, 80, 90]</li>
+                    </ol>
+                    <div class="diagram">${barRepresentation([10, 30, 40, 50, 70, 80, 90])}</div>
+                </div>
+                <div id="quick-example2" class="example">
+                    <h3>Example 2</h3>
+                    <p>Let's sort the array [29, 10, 14, 37, 13]. Here’s how the Quick Sort algorithm would work:</p>
+                    <ol>
+                        <li>Select pivot (14) → Partition: [10, 13] [14] [29, 37]</li>
+                        <li>Sort left → [10, 13] is already sorted</li>
+                        <li>Sort right → Select pivot (37) → [29] [37]</li>
+                        <li>Combine → [10, 13, 14, 29, 37]</li>
+                    </ol>
+                    <div class="diagram">${barRepresentation([10, 13, 14, 29, 37])}</div>
+                </div>`;
+                break;
+
+            case 'selection':
+                info = `<h2>Selection Sort</h2>
+                        <p>Selection Sort is a simple comparison-based sorting algorithm. 
+                        It divides the input list into two parts: the sorted part on the left and the unsorted part on the right. 
+                        Initially, the sorted part is empty, and the unsorted part contains all elements. 
+                        The smallest element is selected from the unsorted part and swapped with the leftmost unsorted element, 
+                        moving the boundary between the sorted and unsorted parts one element to the right. 
+                        It has a time complexity of O(n²), making it inefficient for large datasets.</p>
+                        <p><a href="#selection-explanation">View Explanation</a> | <a href="#selection-example1">View Example 1</a> | <a href="#selection-example2">View Example 2</a></p>`;
+                
+                examples = `
+                <div id="selection-explanation" class="example">
+                    <h3>Explanation</h3>
+                    <p>Selection Sort repeatedly selects the smallest element from the unsorted portion of the array and moves it to the sorted portion. 
+                    This process continues until the entire array is sorted. Though it is not suitable for large datasets, 
+                    it is quite simple to understand and implement.</p>
+                </div>
+                <div id="selection-example1" class="example">
+                    <h3>Example 1</h3>
+                    <p>Let's sort the array [64, 25, 12, 22, 11]. Here’s how the Selection Sort algorithm would work step-by-step:</p>
+                    <ol>
+                        <li>Initial array: [64, 25, 12, 22, 11]</li>
+                        <li>Find minimum (11) and swap with 64 → [11, 25, 12, 22, 64]</li>
+                        <li>Find minimum (12) and swap with 25 → [11, 12, 25, 22, 64]</li>
+                        <li>Find minimum (22) and swap with 25 → [11, 12, 22, 25, 64]</li>
+                        <li>Final sorted array: [11, 12, 22, 25, 64]</li>
+                    </ol>
+                    <div class="diagram">${barRepresentation([11, 12, 22, 25, 64])}</div>
+                </div>
+                <div id="selection-example2" class="example">
+                    <h3>Example 2</h3>
+                    <p>Let's sort the array [29, 10, 14, 37, 13]. Here’s how the Selection Sort algorithm would work:</p>
+                    <ol>
+                        <li>Initial array: [29, 10, 14, 37, 13]</li>
+                        <li>Find minimum (10) and swap with 29 → [10, 29, 14, 37, 13]</li>
+                        <li>Find minimum (13) and swap with 29 → [10, 13, 14, 37, 29]</li>
+                        <li>Final sorted array: [10, 13, 14, 29, 37]</li>
+                    </ol>
+                    <div class="diagram">${barRepresentation([10, 13, 14, 29, 37])}</div>
+                </div>`;
+                break;
         }
 
-        function updateDescription(text) {
-            const description = document.getElementById('description');
-            description.innerText = text;
-        }
+        infoDiv.innerHTML = info;
+        examplesDiv.innerHTML = examples;
 
-        async function visualizeBubbleSort() {
-            updateDescription("Bubble Sort: Organizing books by height.");
-            const arr = [...array];
-            const n = arr.length;
-            createBars(arr);
+        // Hide all examples initially
+        const exampleDivs = document.querySelectorAll('.example');
+        exampleDivs.forEach(div => div.style.display = 'none');
 
-            for (let i = 0; i < n - 1; i++) {
-                for (let j = 0; j < n - i - 1; j++) {
-                    if (arr[j] > arr[j + 1]) {
-                        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-                        createBars(arr);
-                        await new Promise(resolve => setTimeout(resolve, 500));
-                    }
-                }
-            }
-        }
+        // Show only the links that were clicked
+        const links = document.querySelectorAll('a');
+        links.forEach(link => link.onclick = function() {
+            const target = link.getAttribute('href').substring(1);
+            const targetDiv = document.getElementById(target);
+            exampleDivs.forEach(div => div.style.display = 'none');
+            targetDiv.style.display = 'block';
+        });
+    }
 
-        async function visualizeSelectionSort() {
-            updateDescription("Selection Sort: Finding the smallest toy in a box.");
-            const arr = [...array];
-            const n = arr.length;
-            createBars(arr);
+    function barRepresentation(array) {
+        const max = Math.max(...array);
+        return array.map(value => {
+            const height = (value / max) * 100; // Scale height
+            return `<div class="bar" style="height: ${height}%;"></div>`;
+        }).join('');
+    }
+</script>
 
-            for (let i = 0; i < n - 1; i++) {
-                let minIndex = i;
-                for (let j = i + 1; j < n; j++) {
-                    if (arr[j] < arr[minIndex]) {
-                        minIndex = j;
-                    }
-                }
-                [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
-                createBars(arr);
-                await new Promise(resolve => setTimeout(resolve, 500));
-            }
-        }
-
-        async function visualizeQuickSort() {
-            updateDescription("Quick Sort: Organizing students by age.");
-            const arr = [...array];
-            await quickSort(arr, 0, arr.length - 1);
-            createBars(arr);
-        }
-
-        async function quickSort(arr, left, right) {
-            if (left < right) {
-                const pivotIndex = await partition(arr, left, right);
-                await quickSort(arr, left, pivotIndex - 1);
-                await quickSort(arr, pivotIndex + 1, right);
-            }
-        }
-
-        async function partition(arr, left, right) {
-            const pivot = arr[right];
-            let i = left - 1;
-
-            for (let j = left; j < right; j++) {
-                if (arr[j] < pivot) {
-                    i++;
-                    [arr[i], arr[j]] = [arr[j], arr[i]];
-                    createBars(arr);
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                }
-            }
-            [arr[i + 1], arr[right]] = [arr[right], arr[i + 1]];
-            createBars(arr);
-            await new Promise(resolve => setTimeout(resolve, 500));
-            return i + 1;
-        }
-
-        createBars(array);
-        updateDescription("Choose a sorting algorithm to visualize.");
-    </script>
 </body>
 </html>
