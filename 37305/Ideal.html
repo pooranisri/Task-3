@@ -294,11 +294,9 @@
         infoDiv.innerHTML = info;
         examplesDiv.innerHTML = examples;
 
-        // Hide all examples initially
         const exampleDivs = document.querySelectorAll('.example');
         exampleDivs.forEach(div => div.style.display = 'none');
 
-        // Show only the links that were clicked
         const links = document.querySelectorAll('a');
         links.forEach(link => link.onclick = function() {
             const target = link.getAttribute('href').substring(1);
@@ -324,7 +322,7 @@
             <p>In general, Merge Sort and Quick Sort are the preferred algorithms for larger datasets due to their better performance.</p>
         `;
         document.getElementById('algorithm-info').innerHTML = comparisonInfo;
-        document.getElementById('algorithm-examples').innerHTML = ''; // Clear examples
+        document.getElementById('algorithm-examples').innerHTML = '';
     }
 </script>
 
